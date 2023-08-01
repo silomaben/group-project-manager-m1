@@ -1,0 +1,9 @@
+#create a project
+POST http://localhost:4500/projects
+Content-Type: application/json
+
+{
+    "title": "Smile a little",
+    "description": "It works, don’t touch!",
+    "enddate": "2023-8-5"
+}
