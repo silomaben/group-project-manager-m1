@@ -1,0 +1,5 @@
+CREATE OR ALTER PROCEDURE userLogin(@email VARCHAR(200))
+AS
+BEGIN
+    SELECT * FROM USERSTable WHERE email = @email
+END

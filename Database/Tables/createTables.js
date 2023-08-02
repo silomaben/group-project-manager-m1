@@ -40,11 +40,12 @@ const createUsersTable = async(req, res)=>{
         const table = `
         BEGIN 
             TRY
-                CREATE TABLE employeesTable(
+                CREATE TABLE usersTable(
                     id VARCHAR(200) PRIMARY KEY,
                     full_name VARCHAR(200) NOT NULL,
                     email VARCHAR(200) UNIQUE NOT NULL,
                     password VARCHAR(500) NOT NULL,
+                    assignedProject VARCHAR(300),
                     role VARCHAR(50) DEFAULT 'user'
                 )
             END TRY
