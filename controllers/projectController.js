@@ -19,9 +19,6 @@ const projects = [];
 
 const createNewProject = async (req,res)=>{
     try {
-
-        console.log("inside");
-
         createProjectsTable()
         const id = v4();
         const currentTime = new Date();
@@ -29,16 +26,18 @@ const createNewProject = async (req,res)=>{
 
         const pool = await mssql.connect(sqlConfig)
 
-        console.log(id);
+        console.log('b4 proc');
 
         if(pool.connected){
             const result = await pool.request()
             .input('id',mssql.VarChar, id)
             .input('title', mssql.VarChar,title)
             .input('description', mssql.VarChar, description)
-            .input('startdate', mssql.Date, currentTime)
             .input('enddate', mssql.Date, enddate)
-            .execute('createNoteProcedure')
+            .execute('createProjectProc')
+            
+            
+            console.log("inside");
 
             if(result.rowsAffected==1){
                 return res.json({
@@ -49,48 +48,92 @@ const createNewProject = async (req,res)=>{
             }
 
         }
-
-        // const newNote = new notebook(id,note_title,content,currentTime);
-
-        // notes.push(newNote)
-
-        res.json({
-            message: "Note created sucessfully",
-            note: newNote
-        })
         
     } catch (error) {
-        
+        return res.json({error})
     }
 }
 
 
 const viewOneProject = async (req,res)=>{
     try {
-        
+        const {id} = req.params
+
+        const pool = await mssql.connect(sqlConfig);
+        console.log("VIEW ONE");
+
+        const project = (await pool.request().input('id', id).execute('fetchOneProjectProc')).recordset;
+
+        return res.json({
+            project: project
+        })
     } catch (error) {
-        
+        return res.json({error})
     }
 }
 const viewAllProjects = async (req,res)=>{
     try {
+        const pool = await (mssql.connect(sqlConfig))
+
+        const allproject = (await pool.request().execute('fetchAllProjectsProc')).recordset
         
+        res.json({projects: allproject})
     } catch (error) {
-        
+        return res.json({error})
     }
 }
 const updateProject = async (req,res)=>{
     try {
-        
+        const {id} = req.params
+
+        const {title, description,  enddate} = req.body
+
+        const pool = await mssql.connect(sqlConfig)
+
+        const result = (await pool.request()
+        .input('id', mssql.VarChar, id)
+        .input('title', mssql.VarChar, title)
+        .input('description', mssql.VarChar, description)
+        .input('enddate', mssql.Date, enddate)
+
+        .execute('updateProjectProc'));
+
+        console.log(result);
+
+        if(result.rowsAffected == 1){
+            res.json({
+                message: 'project updated successfully'
+            })
+        }else{
+            res.json({
+                message: 'project not found'
+            })
+        }
     } catch (error) {
-        
+        return res.json({error})
     }
 }
 const deleteProject = async (req,res)=>{
     try {
-        
+        const id = req.params.id
+
+        const pool = await mssql.connect(sqlConfig)
+
+        const result = await pool.request()
+        .input('id', id)
+        .execute('deleteProjectProc')
+      
+        if(result.rowsAffected == 1){
+            res.json({
+                    message: 'Project deleted successfully'
+            })
+        }else{
+            res.json({
+                message: 'Project not found'
+        })
+        }
     } catch (error) {
-        
+        return res.json({error})
     }
 }
 
@@ -100,4 +143,5 @@ module.exports = {
     viewAllProjects,
     viewOneProject,
     updateProject,
+    deleteProject
 }

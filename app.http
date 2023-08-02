@@ -5,5 +5,26 @@ Content-Type: application/json
 {
     "title": "Smile a little",
     "description": "It works, don’t touch!",
-    "enddate": "2023-8-5"
+    "enddate": "2023/8/5"
 }
+
+
+
+### GET ALL PROJECTS
+GET http://localhost:4500/projects
+
+### GET ONE PROJECT
+GET http://localhost:4500/projects/afd82a0a-1071-4e57-9a4b-cef7cc845ff0
+
+### UPDATING PROJECT
+PUT http://localhost:4500/projects/afd82a0a-1071-4e57-9a4b-cef7cc845ff0
+Content-Type: application/json
+
+{
+    "title": "Smile some more",
+    "description": "It works, don’t touch brother!",
+    "enddate": "2023/8/5"
+}
+
+###
+DELETE http://localhost:4500/projects/afd82a0a-1071-4e57-9a4b-cef7cc845ff0

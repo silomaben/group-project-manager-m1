@@ -56,7 +56,7 @@ const createUsersTable = async(req, res)=>{
 
     await pool.request().query(table, (err)=>{
         if(err instanceof mssql.RequestError){
-            console.log({Error: err.message});
+            console.log(err.message);
         }else{
             console.log('Table created Successfully');
         }
