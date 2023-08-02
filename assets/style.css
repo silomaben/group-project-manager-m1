@@ -16,7 +16,7 @@
   .login {
     display: flex;
     flex-direction: column;
-    height: 30vh;
+    height: 400px;
     width: 200px;
     background-color: #d0cef2;
     justify-content: center;
@@ -24,10 +24,13 @@
     border-radius: 10px;
     box-shadow: 6px 10px 5px #818187;
   }
+  .image{
+    width: 200px;
+  }
   form {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 10px;
     align-items: center;
   }
 
@@ -41,5 +44,48 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 6px 10px 5px #818187;
+  }
+  .app {
+    display: flex;
+    flex-direction: row;
+    height: 500px;
+    width: 500px;
+    background-color: #d0cef2;
+    justify-content: center;
+    padding: 0px;
+    border-radius: 10px;
+    box-shadow: 6px 10px 5px #818187;
+  }
+  .navbar{
+    height: 500px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    background-color: #212c45;
+    position: relative;
+    border-radius: 10px;
+    /* box-shadow: 6px 10px 5px #818187; */
+  }
+  .content{
+    /* margin-left: 150px; */
+    border: solid;
+    height: 500px;
+    width: 350px;
+  }
+  .content-data{
+    border: solid;
+    margin-top: 20px;
+    background-color:#8f8aec ;
+    height: 450px;
+    /* z-index: 10; */
+  }
+  .project{
+    width: 200px;
+    height: 200px;
+    background-color: #a9a5ed;
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
   }
   
