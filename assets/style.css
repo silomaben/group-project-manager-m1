@@ -49,7 +49,7 @@
     display: flex;
     flex-direction: row;
     height: 500px;
-    width: 500px;
+    width: 700px;
     background-color: #d0cef2;
     justify-content: center;
     padding: 0px;
@@ -62,18 +62,19 @@
     display: flex;
     flex-direction: column;
     background-color: #212c45;
-    position: relative;
+    position:static;
     border-radius: 10px;
+    
     /* box-shadow: 6px 10px 5px #818187; */
   }
   .content{
     /* margin-left: 150px; */
-    border: solid;
-    height: 500px;
-    width: 350px;
+    /* border: solid; */
+    height: 50px;
+    width: 550px;
   }
   .content-data{
-    border: solid;
+    /* border: solid; */
     margin-top: 20px;
     background-color:#8f8aec ;
     height: 450px;
@@ -88,4 +89,36 @@
     display: flex;
     flex-direction: column;
   }
-  
+  .user{
+    display: flex;
+    background-color: #f6f6f9;
+    color: black;
+    width: 540px;
+    margin-top: 10px;
+    height: 22px;
+    border-radius: 5px;
+    padding: 5px;
+    justify-content: space-between;
+
+  }
+.project-assigned{
+  color: black;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 400px;
+  background-color: #f0f0f5;
+  gap: 20px;
+  align-items: center;
+  margin: auto;
+  border-radius: 20px;
+
+}
+.time-div{
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+}
+.project-assigned button{
+  width: 100px;
+}
