@@ -46,8 +46,7 @@ const createUsersTable = async(req, res)=>{
                     email VARCHAR(200) UNIQUE NOT NULL,
                     password VARCHAR(500) NOT NULL,
                     assignedProject VARCHAR(300),
-                    role VARCHAR(50) DEFAULT 'user',
-                    FOREIGN KEY (assignedProject) REFERENCES projectsTable(id)
+                    role VARCHAR(50) DEFAULT 'user'
                 )
             END TRY
         BEGIN CATCH
