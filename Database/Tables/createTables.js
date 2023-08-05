@@ -13,7 +13,7 @@ const createProjectsTable = async(req, res)=>{
                 description VARCHAR(1000) NOT NULL,
                 startdate DATE,
                 enddate DATE NOT NULL,
-                completionStatus BIT DEFAULT 0,
+                completionStatus VarChar(500) ,
             )
         END TRY
     BEGIN   
@@ -46,7 +46,8 @@ const createUsersTable = async(req, res)=>{
                     email VARCHAR(200) UNIQUE NOT NULL,
                     password VARCHAR(500) NOT NULL,
                     assignedProject VARCHAR(300),
-                    role VARCHAR(50) DEFAULT 'user'
+                    role VARCHAR(50) DEFAULT 'user',
+                    FOREIGN KEY (assignedProject) REFERENCES projectsTable(id)
                 )
             END TRY
         BEGIN CATCH

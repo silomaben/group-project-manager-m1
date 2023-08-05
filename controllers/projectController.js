@@ -26,7 +26,7 @@ const createNewProject = async (req,res)=>{
 
         const pool = await mssql.connect(sqlConfig)
 
-        console.log('b4 proc');
+        // console.log('b4 proc');
 
         if(pool.connected){
             const result = await pool.request()
@@ -53,6 +53,42 @@ const createNewProject = async (req,res)=>{
         return res.json({error})
     }
 }
+
+
+
+const assignProjects = async (req,res)=>{
+    try {
+        const {project_id, user_id} = req.body
+
+        // console.log(project_id, user_id);
+          
+        const pool = await mssql.connect(sqlConfig)
+
+        if(pool.connected){
+            const pool_result = await pool.request()
+            .input('project_id',mssql.VarChar, project_id)
+            .input('userId', mssql.VarChar,user_id)
+            .execute('assignProjectProc')
+            
+            if(pool_result.rowsAffected == 1){
+                return res.json({
+                    message: "Project assigned successfully"
+                })
+            }else{
+                return res.json({message: "Project assigning failed"})
+            }
+        }
+        // console.log("connected");
+
+        
+
+
+
+    } catch (error) {
+        return res.json({Error:error.message})
+    }
+}
+
 
 
 const viewOneProject = async (req,res)=>{
@@ -143,5 +179,6 @@ module.exports = {
     viewAllProjects,
     viewOneProject,
     updateProject,
-    deleteProject
+    deleteProject,
+    assignProjects
 }

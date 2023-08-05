@@ -78,6 +78,11 @@ const userLogin = async(req,res)=>{
             if(comparePwd){
                 const {password , ...payload} = user
                 const token = jwt.sign(payload, process.env.SECRET, {expiresIn : '3600s'})
+
+                if(user.role == 'user'){
+                    
+                }
+
                 return res.status(200).json({
                     message: 'logged in',
                     token
