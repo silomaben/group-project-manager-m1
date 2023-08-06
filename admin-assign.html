@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/admin.css">
     <link rel="stylesheet" href="/assets/style.css">
     <title>Admin</title>
 </head>
 <body>
     <div class="app">
         <div class="navbar">
-            <img src="images/avatar-2092113_640.png" alt="">
-            <span>Admin</span>
-            <a href="/adminpage.html"><button>Dashboard</button></a>
-            <a href="/admin-assign.html"><button>Users</button></a>
-            <a href="/login.html"><button>Logout</button></a>
+            <img class="userimg" src="images/avatar-2092113_640.png" alt="">
+            <span class="user-name">Admin</span>
+            <div class="nav-btn">
+                <div class="project-btns">
+                    <a href="/adminpage.html"><button>Dashboard</button></a>
+                    <a href="/admin-assign.html"><button>Users</button></a>
+                </div>
+                <a href="/login.html"><button>Logout</button></a>
+            </div>
         </div>
         <div class="content">
             <div class="content-nav">
@@ -22,7 +27,7 @@
                 <button>Assign </button>
 
             </div>
-            <div class="content-data">
+            <div class="contentdata">
                 <div class="users-nav">
                     <button>All users</button>
                     <button>Assigned users</button>
