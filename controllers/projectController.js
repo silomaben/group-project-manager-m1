@@ -60,6 +60,7 @@ const createNewProject = async (req,res)=>{
 const assignProjects = async (req,res)=>{
     try {
         const {project_id, user_id} = req.body
+        const currentTime = new Date();
 
         // console.log(project_id, user_id);
           
@@ -69,6 +70,7 @@ const assignProjects = async (req,res)=>{
             const pool_result = await pool.request()
             .input('project_id',mssql.VarChar, project_id)
             .input('userId', mssql.VarChar,user_id)
+            .input('currentTime',mssql.Date,currentTime)
             .execute('assignProjectProc')
 
             console.log(pool_result.rowsAffected);

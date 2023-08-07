@@ -41,8 +41,8 @@ PUT http://localhost:4500/users/assign
 Content-Type: application/json
 
 {
-    "project_id": "198afa20-18c6-4de2-9def-27b1bb8009b1",
-    "user_id": "3270a28d-bf9c-4db4-80d1-034bed1fec68"    
+    "project_id": "53543c52-4e36-4ec9-ac80-7c70a9c9cfbe",
+    "user_id": "a5907d51-f0d0-425e-b601-872d48d53a04"    
 }
 
 
