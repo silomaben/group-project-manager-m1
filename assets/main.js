@@ -1,13 +1,15 @@
 function logoutUser(){
     const logout_btn = document.querySelector('#logout-btn')
 
-logout_btn.addEventListener('click',()=>{
+    logout_btn.addEventListener('click',()=>{
     localStorage.removeItem('token');
     window.location.href = '/login.html'
     // window.history.replaceState({},document.title, '/login.html');
 })
 }
 
+
+const globalProjects = []
 
 // // In your restricted page's script
 // document.addEventListener('DOMContentLoaded', () => {
@@ -105,15 +107,18 @@ if(window.location.pathname == '/login.html'){
     let token = ''
 
     
-    login_form.addEventListener('submit', (e)=>{
+    login_form.addEventListener('submit',async (e)=>{
         e.preventDefault()
+
+        
+        
         
 
         const user = txtloginemail.value !== '' && txtloginpwd.value !== ''
 
         if(user){
-            const promise = new Promise((resolve, reject)=>{
-                fetch('http://localhost:4500/users/login', {
+            // const promise = new Promise((resolve, reject)=>{
+                await fetch('http://localhost:4500/users/login', {
                     headers:{
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
@@ -130,46 +135,49 @@ if(window.location.pathname == '/login.html'){
                        
                     localStorage.setItem('token', token)
 
-                    setTimeout(() => {
-                        // loginMsgs.innerHTML = ''
-                    }, 3000);
+                    
                 })
-            })
+            // })
 
-            if(localStorage.getItem('token')){
-                // console.log("inside fetch");
-                fetch('http://localhost:4500/users/check', {
-                    headers:{
-                        'Accept': 'application/json',
-                        'Content-type': 'application/json',
-                        "token": localStorage.getItem('token')
-                    },
-                    method: "GET"
-                }).then(res => (res.json())).then(data=>{
-                    // loginMsgs.innerHTML = data?.message 
-                    // token = data?.token
-
-                     // Get user role from the response
-                    const userRole = data?.info?.role;
-
-                    // console.log(userRole);
-
-                    // Redirect based on user role
-                    if (userRole === 'user') {
-                        window.location.href = '/userpage.html'; // Redirect for regular users
-                    } else if (userRole === 'admin') {
-                        window.location.href = '/adminpage.html'; // Redirect for admin users
-                    }
-
-
+            // setTimeout(() => {
+                if(localStorage.getItem('token')){
+                    // console.log("inside fetch");
+                    await fetch('http://localhost:4500/users/check', {
+                        headers:{
+                            'Accept': 'application/json',
+                            'Content-type': 'application/json',
+                            "token": localStorage.getItem('token')
+                        },
+                        method: "GET"
+                    }).then(res => (res.json())).then(data=>{
+                        console.log("submit insiiiiiiiiiiiide");
+                        // loginMsgs.innerHTML = data?.message 
+                        // token = data?.token
+    
+                         // Get user role from the response
+                        const userRole = data?.info?.role;
+    
+                        console.log(userRole);
+                        
+    
+                        // Redirect based on user role
+                        if (userRole === 'user') {
+                            window.location.href = '/userpage.html'; // Redirect for regular users
+                        } else if (userRole === 'admin') {
+                            window.location.href = '/adminpage.html'; // Redirect for admin users
+                        }
+    
+                        // userRole = ''
+    
+    
+                           
+                        // localStorage.setItem('token', token)
+    
                        
-                    // localStorage.setItem('token', token)
-
-                    setTimeout(() => {
-                        // loginMsgs.innerHTML = ''
-                    }, 3000);
-                })
-            }
+                    })
+                }
+            // }, 100);
+            
         }
     })
 }
@@ -181,6 +189,10 @@ if(window.location.pathname == '/login.html'){
 // }
 
 if(window.location.pathname == '/admin-assign.html'){
+
+    if(!localStorage.getItem('token')){
+        window.location.href = '/login.html'
+    }
 
     // Send GET request and render projects
     async function renderProjects() {
@@ -353,6 +365,91 @@ if(window.location.pathname == '/admin-assign.html'){
 
 // handle render projects in admin dashboard
 if(window.location.pathname == '/adminpage.html'){
+
+    logoutUser()
+
+    if(!localStorage.getItem('token')){
+        window.location.href = '/login.html'
+    }
+
+    
+   
+
+    
+
+    
+
+    
+
+
+        
+        const submitModalButton = document.querySelector('.modal-submit');
+
+        if (submitModalButton) { // Check if the element was found
+            submitModalButton.addEventListener('click', async (event) => {
+                event.preventDefault();
+
+                const modalTitle = document.getElementById('modal-title').value;
+                const modalDescription = document.getElementById('modal-description').value;
+                const modalEnddate = document.getElementById('modal-enddate').value;
+
+                const token = localStorage.getItem('token');
+
+                try {
+                    const response = await fetch('http://localhost:4500/projects', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'token': token
+                        },
+                        body: JSON.stringify({
+                            "title": modalTitle,
+                            "description": modalDescription,
+                            "enddate": modalEnddate
+                        })
+                    });
+
+                    if (response.ok) {
+                        const responseData = await response.json();
+                        console.log('Project created:', responseData);
+                        window.location.href = '/adminpage.html'
+                        // Handle the response data as needed
+                    } else {
+                        console.error('Failed to create project');
+                        // Handle error scenario here
+                    }
+                } catch (error) {
+                    console.error('An error occurred:', error);
+                    // Handle error scenario here
+                }
+            });
+        } else {
+            console.error('Submit button not found');
+        }
+
+
+       
+
+
+
+
+    const openModalButton = document.getElementById('openModal');
+const closeModalButton = document.getElementById('closeModal');
+
+
+openModalButton.addEventListener('click', () => {
+  modal.style.display = 'flex';
+});
+
+closeModalButton.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+});
     
 // Assuming you have a <div> element with the id "content" to hold the project data
 const contentDiv = document.querySelector('.content-data')
@@ -374,9 +471,13 @@ async function renderProjects() {
             let selectuser = document.querySelector('#select-users');
             const projects = await response.json();
             // console.log(`projects are: ${projects}`);
-            console.log(projects);
+            // console.log(projects);
             const projectsArray = projects.projects;
             renderProjectsToDOM(projectsArray); // Call function to render projects
+
+            globalProjects.push(projectsArray)
+            // console.log('globalProjects');
+            // console.log(globalProjects);
 
             
           
@@ -390,8 +491,91 @@ async function renderProjects() {
     }
 }
 
+
+
+const runningButton = document.querySelector('#running-projects');
+const completeButton = document.querySelector('#completed-projects');
+const allButton = document.querySelector('#all-projects');
+
+
+allButton.addEventListener('click', () => {
+    const contentDiv = document.querySelector('.content-data');
+    contentDiv.innerHTML = ''; // Clear the content before rendering
+    const allProjects=[]
+
+    console.log('Running button clicked');
+    console.log(globalProjects);
+
+    globalProjects.forEach((innerProjectsArray) => {
+        innerProjectsArray.forEach((project) => {
+                allProjects.push(project);
+        });
+    });
+
+    renderProjectsToDOM(allProjects)
+})
+
+
+runningButton.addEventListener('click', () => {
+    const contentDiv = document.querySelector('.content-data');
+    contentDiv.innerHTML = ''; // Clear the content before rendering
+    const runningProjects=[]
+
+    console.log('Running button clicked');
+    console.log(globalProjects);
+
+    globalProjects.forEach((innerProjectsArray) => {
+        innerProjectsArray.forEach((project) => {
+            // console.log(project.assignedStatus);
+
+            if (project.assignedStatus) {
+                console.log('inside assigned');
+                console.log(project);
+                runningProjects.push(project); // Add the project to the runningProjects array
+            }
+        });
+    });
+
+    renderProjectsToDOM(runningProjects)
+
+    // Now you can use the runningProjects array to render the projects or perform other actions
+    console.log('Running projects:', runningProjects);
+});
+
+
+completeButton.addEventListener('click',()=>{
+    const contentDiv = document.querySelector('.content-data');
+    contentDiv.innerHTML = ''; 
+    const completedProjects=[]
+
+    console.log('Running button clicked');
+    console.log(globalProjects);
+
+    globalProjects.forEach((innerProjectsArray) => {
+        innerProjectsArray.forEach((project) => {
+            // console.log(project.assignedStatus);
+
+            if (project.completionStatus) {
+                // console.log('inside assigned');
+                // console.log(project);
+                completedProjects.push(project); // Add the project to the runningProjects array
+            }
+        });
+    });
+
+    renderProjectsToDOM(completedProjects)
+
+    // Now you can use the runningProjects array to render the projects or perform other actions
+    // console.log('Running projects:', completedProjects);
+})
+
+
+
+
+
 // Render projects to the DOM
 function renderProjectsToDOM(projects) {
+    const modalHeading = document.querySelector("#modal-heading")
     projects.forEach(project => {
         const projectDiv = document.createElement('div');
         projectDiv.classList.add('project');
@@ -403,7 +587,23 @@ function renderProjectsToDOM(projects) {
         projectDescription.textContent = `Project description: ${project.description}`;
 
         const projectStatus = document.createElement('span');
-        projectStatus.textContent = `Status: ${project.status}`;
+        console.log(project);
+
+        if(project.assignedStatus){
+            console.log(project.completionStatus);
+            if (project.completionStatus!==null) {
+                projectStatus.textContent = `Status: Complete`
+            }else{
+                projectStatus.textContent = `Status: Running`
+            }
+
+            
+            
+            
+        }else{
+            projectStatus.textContent = `Status: Unassigned`;
+        }
+       
 
         const projectStartDate = document.createElement('span');
         projectStartDate.textContent = `Start Date: ${project.startdate}`;
@@ -417,12 +617,57 @@ function renderProjectsToDOM(projects) {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'delete';
 
-        const editButton = document.createElement('button');
-        editButton.textContent = 'edit';
+        // const editButton = document.createElement('button');
+        // editButton.className = 'edit-project'
+        // editButton.textContent = 'edit';
+
+        deleteButton.addEventListener('click',async()=>{
+            // modalHeading.textContent = "Update project"
+            // modal.style.display = 'flex';
+
+            // const submitModalButton = document.querySelector('.modal-submit');
+
+            if(project.assignedStatus){
+                alert('You cannot delete assigned projects')
+                return
+            }
+           
+            const token = localStorage.getItem('token');
+
+
+            console.log(project.id);
+
+            try {
+                const response = await fetch(`http://localhost:4500/projects/${project.id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': token
+                    },
+                    
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    console.log('Project deleted message:', responseData);
+                    window.location.href = '/adminpage.html'
+                    // Handle the response data as needed
+                } else {
+                    console.error('Failed to create project');
+                    // Handle error scenario here
+                }
+            } catch (error) {
+                console.error('An error occurred:', error);
+                // Handle error scenario here
+            }
+            
+            
+            
+        })
 
         // Append elements to the projectDiv
         projBtnDiv.appendChild(deleteButton);
-        projBtnDiv.appendChild(editButton);
+        // projBtnDiv.appendChild(editButton);
 
         projectDiv.appendChild(projectTitle);
         projectDiv.appendChild(projectDescription);
@@ -433,8 +678,17 @@ function renderProjectsToDOM(projects) {
 
         // Append the projectDiv to the contentDiv
         contentDiv.appendChild(projectDiv);
+
+        
     });
 }
+
+
+            
+            const modal = document.getElementById('modal');
+            
+
+            
 
 // Call the function to render projects when the page loads
 document.addEventListener('DOMContentLoaded', () => {
@@ -446,6 +700,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 if (window.location.pathname == '/userpage.html') {
+
+
+    if(!localStorage.getItem('token')){
+        window.location.href = '/login.html'
+    }
+
+    
     const contentDataDiv = document.querySelector('.content-data');
     const projectTitle  = document.querySelector('#project-title')
     const description  = document.querySelector('#proj-desc')
@@ -561,6 +822,11 @@ if (window.location.pathname == '/userpage.html') {
 if (window.location.pathname == '/userpage.html') {
  // #######################################################################################
 // Get the "Complete" button element
+logoutUser()
+
+if(!localStorage.getItem('token')){
+    window.location.href = '/login.html'
+}
 const completeButton = document.getElementById('completeButton');
 
 // Add an event listener to the "Complete" button
@@ -656,3 +922,63 @@ async function completeProject(project_id, user_id) {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const modalTitle = document.getElementById('modal-title').value;
+// const modalDescription = document.getElementById('modal-description').value;
+// const modalEnddate = document.getElementById('modal-enddate').value;
+
+//     const token = localStorage.getItem('token');
+//     console.log(project.id);
+
+//     try {
+//         const response = await fetch(`http://localhost:4500/projects/${project.id}`, {
+//             method: 'PUT',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'token': token
+//             },
+//             body: JSON.stringify({
+//                 "title": modalTitle,
+//                 "description": modalDescription,
+//                 "enddate": modalEnddate
+//             })
+//         });
+
+//         if (response.ok) {
+//             const responseData = await response.json();
+//             console.log('Project created:', responseData);
+//             window.location.href = '/adminpage.html'
+//             // Handle the response data as needed
+//         } else {
+//             console.error('Failed to create project');
+//             // Handle error scenario here
+//         }
+//     } catch (error) {
+//         console.error('An error occurred:', error);
+//         // Handle error scenario here
+//     }
