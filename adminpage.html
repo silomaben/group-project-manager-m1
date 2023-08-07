@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/admin.css">
-    <link rel="stylesheet" href="/assets/styl.css">
+    <link rel="stylesheet" href="/assets/admin.css">
+    <link rel="stylesheet" href="/assets/menu.css">
     <title>Admin</title>
 </head>
 <body>
@@ -20,8 +20,23 @@
                 <a href="/login.html"><button>Logout</button></a>
             </div>
         </div>
+        <nav class="navbar-top">
+            <a href="#" class="nav-logo"></a>
+            <ul class="nav-menu">
+                <li class="nav-item"><button class="open-modal-btn" id="openModal"> Create Project</button></li>
+                <li class="nav-item"><button>All Projects</button></li>
+                <li class="nav-item"><button>Running Projects </button></li>
+                <li class="nav-item"><button>Completed Projects</button></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
         <div class="content">
             <div class="content-nav">
+
                 <button class="open-modal-btn" id="openModal"> Create Project</button>
                 <div class="modal" id="modal">
                     <div class="modal-content">

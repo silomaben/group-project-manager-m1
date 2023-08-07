@@ -16,12 +16,14 @@ body {
 .app {
   display: flex;
   flex-direction: row;
-  height: 500px;
-  width: 700px;
+  height: 510px;
+  width: 750px;
   background-color: #8f8aec ;
   justify-content: center;
   padding: 0px;
   border-radius: 10px;
+  overflow: auto;
+  justify-content: space-between;
   box-shadow: 6px 10px 5px #818187;
 }
 .navbar{
@@ -71,12 +73,15 @@ border: none;
 }
 
 .content-data{
-    height: 450px;
+    overflow: hidden;
+    height: 470px;
     display: flex;
     flex-wrap: wrap;
-    width: 550px;
+    width: 570px;
+    /* overflow: auto; */
   }
 .content-nav{
+    position: relative;
     display: flex;
     padding: 5px;
     border-radius: 10px;
@@ -224,6 +229,7 @@ border: none;
     justify-content: center;
     padding: 0px;
     border-radius: 10px;
+    /* overflow: auto; */
     box-shadow: 6px 10px 5px #818187;
   }
   .navbar {
@@ -244,9 +250,11 @@ border: none;
   /* height: 450px; */
   display: flex;
   /* flex-direction: ; */
+  height: 90%;
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
+  /* overflow: auto; */
 }
 .content-nav{
   display: flex;
@@ -255,8 +263,8 @@ border: none;
   margin: auto;
   gap: 10px;
   border-radius: 10px;
-  height: 15%;
-  width: 100%;
+  height: 5%;
+  width: 95%;
   background-color: #dddcf1;
   color: #212c45;
   align-items: center;
@@ -265,6 +273,7 @@ border: none;
 }
 
 .content-nav button{
+  display: none;
   width: 150px;
   height: 22px;
   border-radius: 5px;
