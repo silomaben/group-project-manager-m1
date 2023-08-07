@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/admin.css">
-    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/styl.css">
     <title>Admin</title>
 </head>
 <body>
@@ -22,7 +22,22 @@
         </div>
         <div class="content">
             <div class="content-nav">
-                <button> Create Project</button>
+                <button class="open-modal-btn" id="openModal"> Create Project</button>
+                <div class="modal" id="modal">
+                    <div class="modal-content">
+                      <span class="close-modal-btn" id="closeModal">&times;</span>
+                      <form action="">
+                          <h2>Create Project</h2>
+                          <label for="">Project Title</label>
+                          <input type="text" class="input" placeholder="Enter Project Title">
+                          <label for="">Project Description</label>
+                          <input type="text" class="description-input" placeholder="Project description"> 
+                          <label for="">Set Enddate</label>
+                          <input type="datetime-local" class="input" placeholder="enddate">
+                          <input type="submit" class="modal-submit">
+                      </form>
+                    </div>
+                  </div>
                 <button>Running Projects </button>
                 <button>Completed Projects</button>
             </div>
@@ -78,5 +93,6 @@
             </div>
         </div>
     </div>
+    <script src="/assets/main.js"></script>
 </body>
 </html>
