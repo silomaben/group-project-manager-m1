@@ -60,6 +60,7 @@ if(window.location.pathname == '/register.html'){
                     })
                 }).then(res=>(res.json())).then(data=>{
                     console.log(data);
+                    window.location.href = '/login.html'; 
                     // regError.innerHTML = data[0]?.message ?? data?.message
                     resolve(data)
                 }).catch(error =>{
@@ -179,15 +180,20 @@ if(window.location.pathname == '/admin-assign.html'){
             // console.log(`projects are: ${projects}`);
             console.log(projects);
             const projectsArray = projects.projects;
-            // console.log('km m m  kl  ');
+            console.log('km m m  kl  ');
 
             projectsArray.map(project => {
-                const option = document.createElement('option');
-                option.value = `${project.id}`;
-                option.text = `${project.title}`;
-                console.log(project.title);
-                
-                selectuser.appendChild(option);
+
+                console.log(project.assignedStatus);
+
+                if(!project.assignedStatus){
+                    const option = document.createElement('option');
+                    option.value = `${project.id}`;
+                    option.text = `${project.title}`;
+                    // console.log(project.title);
+                    
+                    selectuser.appendChild(option);
+                }
               });
 
               
@@ -209,6 +215,7 @@ if(window.location.pathname == '/admin-assign.html'){
                     data.users.forEach(user => {
                         const userDiv = document.createElement('div');
                         userDiv.className = 'user';
+                        // console.log(user);
                         
                         const userNameSpan = document.createElement('span');
                         userNameSpan.textContent = user.full_name;
@@ -227,11 +234,11 @@ if(window.location.pathname == '/admin-assign.html'){
                             checkbox.value = user.id; // Store the user's ID as the checkbox value
                             checkbox.dataset.userId = user.id; // Store the user's ID as a data attribute
                             
-                            const label = document.createElement('label');
-                            label.textContent = 'Not Assigned';
+                            // const label = document.createElement('label');
+                            // label.textContent = 'Not Assigned';
                             
                             userDiv.appendChild(checkbox);
-                            userDiv.appendChild(label);
+                            // userDiv.appendChild(label);
                         }
                         
                         usersListContainer.appendChild(userDiv);
@@ -243,40 +250,61 @@ if(window.location.pathname == '/admin-assign.html'){
             }
 
 
+            const assignButton = document.querySelector('#assign-btn')
+            assignButton.addEventListener('click', async () => {
 
-    //         assignButton.addEventListener('click', async () => {
-    //     // Get the selected user ID and project ID
-    //     let selectedUserId = ''; // Get the selected user's ID from the rendered user elements
-    //     let selectedProjectId = selectUser.value; // Get the selected project's ID from the dropdown
-        
-    //     // Construct the payload for assignment
-    //     const assignmentPayload = {
-    //         user_id: selectedUserId,
-    //         project_id: selectedProjectId
-    //     };
-        
-    //     try {
-    //         const response = await fetch('http://localhost:4500/users/assign', {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(assignmentPayload)
-    //         });
-            
-    //         if (response.ok) {
-    //             console.log('Project assigned successfully.');
-    //             // You can perform additional actions here after successful assignment
-    //         } else {
-    //             console.error('Project assignment failed.');
-    //             // Handle error cases here
-    //         }
-    //     } catch (error) {
-    //         console.error('An error occurred:', error);
-    //         // Handle errors related to the fetch request
-    //     }
-    // });
-            
+                            // Initialize an array to store selected user IDs
+                let selectedUserIds = [];
+
+                // Get all checkboxes that are checked
+                const checkedCheckboxes = document.querySelectorAll('input[name="assignUser"]:checked');
+
+                // Loop through the checked checkboxes and gather the selected user IDs
+                checkedCheckboxes.forEach(checkbox => {
+                    selectedUserIds.push(checkbox.dataset.userId);
+                });
+
+                console.log(selectedUserIds);
+
+                selectedUserIds.forEach(async(useridz)=>{
+                     // Get the selected user ID and project ID
+                    //  let selectedUserId = ''; // Get the selected user's ID from the rendered user elements
+                    let selectuser = document.querySelector('#select-users'); 
+                    let selectedProjectId = selectuser.value; // Get the selected project's ID from the dropdown
+                     console.log(selectedProjectId);
+                     // Construct the payload for assignment
+                     const assignmentPayload = {
+                         user_id: useridz,
+                         project_id: selectedProjectId
+                     };
+                     
+                     try {
+                         const response = await fetch('http://localhost:4500/users/assign', {
+                             method: 'PUT',
+                             headers: {
+                                 'Content-Type': 'application/json'
+                             },
+                             body: JSON.stringify(assignmentPayload)
+                         });
+                         
+                         if (response.ok) {
+                             console.log('Project assigned successfully.');
+                             // You can perform additional actions here after successful assignment
+                         } else {
+                             console.error('Project assignment failed.');
+                             // Handle error cases here
+                         }
+                     } catch (error) {
+                         console.error('An error occurred:', error);
+                         // Handle errors related to the fetch request
+                     }
+                 });
+                 
+
+
+                })
+
+                   
 
             
 
@@ -287,7 +315,7 @@ if(window.location.pathname == '/admin-assign.html'){
             // Handle error scenario here
         }
     } catch (error) {
-        console.error('Error fetching projects:', error);
+        // console.error('Error fetching projects:', error);
         // Handle error scenario here
     }
 }
@@ -488,6 +516,10 @@ if (window.location.pathname == '/userpage.html') {
 }
 
 
+// #######################################################    focus here a little  #################################
+
+if (window.location.pathname == '/userpage.html') {
+ // #######################################################################################
 // Get the "Complete" button element
 const completeButton = document.getElementById('completeButton');
 
@@ -583,3 +615,4 @@ async function completeProject(project_id, user_id) {
 }
 
 
+}
