@@ -81,7 +81,12 @@
     display: flex;
     width: 300px;
     justify-content: space-between;
+    align-items: center;
   }
   .project-assigned button{
     width: 100px;
+  }
+
+  #startdate, #enddate{
+    font-size: small;
   }

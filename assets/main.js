@@ -1,3 +1,24 @@
+function logoutUser(){
+    const logout_btn = document.querySelector('#logout-btn')
+
+logout_btn.addEventListener('click',()=>{
+    localStorage.removeItem('token');
+    window.location.href = '/login.html'
+    // window.history.replaceState({},document.title, '/login.html');
+})
+}
+
+
+// // In your restricted page's script
+// document.addEventListener('DOMContentLoaded', () => {
+//     // Perform an authentication check when the page loads
+//     if (!localStorage.getItem('token')) {
+//         // User is not authenticated, redirect to login page
+//         window.location.href = '/login.html';
+//     }
+// });
+
+
 
 
 if(window.location.pathname == '/register.html'){
@@ -164,6 +185,7 @@ if(window.location.pathname == '/admin-assign.html'){
     // Send GET request and render projects
     async function renderProjects() {
     const token = localStorage.getItem('token');
+    logoutUser()
     
     try {
         const response = await fetch('http://localhost:4500/projects', {
@@ -430,12 +452,17 @@ if (window.location.pathname == '/userpage.html') {
     const startDate  = document.querySelector('#startdate')
     const endDate  = document.querySelector('#enddate')
     const status  = document.querySelector('.status')
-    let token = localStorage.getItem('token'); // Declare the token variable here
+    const projectAssignedDiv  = document.querySelector('.project-assigned')
+    let token = localStorage.getItem('token'); 
+    let user_name = document.querySelector('.user-name')
+
+
+    
 
     // Function to render project details
     async function renderProjectDetails(userId, token) {
         try {
-            console.log('inside renderProjectDetails');
+            // console.log('inside renderProjectDetails');
             const response = await fetch(`http://localhost:4500/projects/${userId}`, {
                 method: 'GET',
                 headers: {
@@ -443,12 +470,17 @@ if (window.location.pathname == '/userpage.html') {
                 }
             });
 
-            console.log("inside renderprojectdetails");
+            // console.log("inside renderprojectdetails");
 
             if (response.ok) {
                 const projectResponse = await response.json();
                     const project = projectResponse.project[0]; // Access the project object within the array
-                    console.log(project);
+                    // console.log(project);
+                    if(!project){
+                        console.log("no projext");
+                        projectAssignedDiv.innerHTML="No projects assigned"
+                        return
+                    }
                     renderProjectToDOM(project);
             } else {
                 console.error('Failed to fetch project details');
@@ -461,6 +493,7 @@ if (window.location.pathname == '/userpage.html') {
     }
 
     // Check for token and fetch user data
+    
     if (token) {
         fetch('http://localhost:4500/users/check', {
             headers: {
@@ -473,7 +506,9 @@ if (window.location.pathname == '/userpage.html') {
         .then(res => res.json())
         .then(data => {
             const userId = data?.info?.id; // Extract user ID from the response
-            console.log(userId);
+            const username = data?.info?.full_name; // Extract user ID from the response
+            user_name.textContent = username
+            console.log(username);
 
             // Call renderProjectDetails with user ID and token
             renderProjectDetails(userId, token);
@@ -483,12 +518,14 @@ if (window.location.pathname == '/userpage.html') {
         });
     }
 
+    logoutUser()
+
     
 
     // Render project details to the DOM
     function renderProjectToDOM(project) {
-        console.log("bsbsbsbbsbsbsbbsbbs");
-        console.log(project.enddate);
+        // console.log("bsbsbsbbsbsbsbbsbbs");
+        // console.log(project.enddate);
         
         // console.log(project);
 
@@ -496,12 +533,15 @@ if (window.location.pathname == '/userpage.html') {
         
         projectTitle.textContent = project.title;
         description.textContent = project.description;
-        // console.log(project.enddate);
+        console.log(project.enddate);
 
         project.enddate =  project.enddate.slice(0, 10);
         project.startdate =  project.startdate.slice(0, 10);
 
-        startDate.textContent = project.startdate;
+        console.log(project.enddate);
+        console.log("bsbsbsbbsbsbsbbsbbs");
+
+        startDate.textContent = `Start Date: ${project.startdate}`;
         endDate.textContent = `End Date: ${project.enddate}`;
         
         if(project.completionStatus!== null){
