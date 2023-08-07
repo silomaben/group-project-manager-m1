@@ -8,14 +8,14 @@ SELECT * FROM usersTable;
 
 
 
--- INSERT INTO usersTable(id, full_name, email, password, role)
--- VALUES (
---   'ed53d1f3-5242-420b-bf42-023046a1d8a9',
---   'Milla Wachira Siloma',
---   'ignit3graphics@gmail.com',
---   '$2b$05$nstcZ1IV.eV6b1rYobbUBeL1v2jFSOj/hL4N5zQIrO8cRqLmOqkbu',
---   'admin'
--- );
+INSERT INTO usersTable(id, full_name, email, password, role)
+VALUES (
+  'ed53d1f3-5242-420b-bf42-023046a1d8a9',
+  'Milla Wachira Siloma',
+  'ignit3graphics@gmail.com',
+  '$2b$05$nstcZ1IV.eV6b1rYobbUBeL1v2jFSOj/hL4N5zQIrO8cRqLmOqkbu',
+  'admin'
+);
 
 
 -- DELETE FROM usersTable

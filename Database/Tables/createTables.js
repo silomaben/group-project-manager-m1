@@ -13,6 +13,7 @@ const createProjectsTable = async(req, res)=>{
                 description VARCHAR(1000) NOT NULL,
                 startdate DATE,
                 enddate DATE NOT NULL,
+                assignedStatus BIT DEFAULT 0,
                 completionStatus VarChar(500) ,
             )
         END TRY

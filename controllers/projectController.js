@@ -70,8 +70,10 @@ const assignProjects = async (req,res)=>{
             .input('project_id',mssql.VarChar, project_id)
             .input('userId', mssql.VarChar,user_id)
             .execute('assignProjectProc')
+
+            console.log(pool_result.rowsAffected);
             
-            if(pool_result.rowsAffected == 1){
+            if (pool_result.rowsAffected[0] === 1 && pool_result.rowsAffected[1] === 1){
                 const sent = hereIsYourNewProject(user_id)
                 console.log(sent);
                 return res.json({

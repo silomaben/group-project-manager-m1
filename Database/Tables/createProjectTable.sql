@@ -18,6 +18,7 @@ BEGIN
 
 
 DROP TABLE IF EXISTS usersTable;
+DROP TABLE IF EXISTS projectsTable;
 
 
 
@@ -29,8 +30,7 @@ BEGIN
                     email VARCHAR(200) UNIQUE NOT NULL,
                     password VARCHAR(500) NOT NULL,
                     assignedProject VARCHAR(300),
-                    role VARCHAR(50) DEFAULT 'user',
-                    issent BIT DEFAULT 0,
+                    role VARCHAR(50) DEFAULT 'user'
                 )
             END TRY
         BEGIN CATCH

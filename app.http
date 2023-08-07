@@ -1,10 +1,10 @@
 #create a project
 POST http://localhost:4500/projects
 Content-Type: application/json
-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM5Y2FiOGY2LTYxMGUtNGJhMC04NjE4LTU5OTkwYWVkMjgzOSIsImZ1bGxfbmFtZSI6Ik1pbGxhIEplc3NvIiwiZW1haWwiOiJtaWxsYWpAZ21haWwuY29tIiwiYXNzaWduZWRQcm9qZWN0IjoiODY0MjYzODYtYWQ5Yy00ODA3LTg4MDktMzA0MWZiYzNmYTgwIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTEzMTUyMjIsImV4cCI6MTY5MTMxODgyMn0.s9Fs3hWhErm_cQXGSGCRfUFmLbnv28ZAyhkR3Yd5B6k
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxZTZhM2JkLWIzNjgtNGFiOS04NjgxLWQ2ZGJkNjU5N2RlYSIsImZ1bGxfbmFtZSI6IkVsaXVkIE1hc3VuIiwiZW1haWwiOiJyeW5hcmRyb25peEBnbWFpbC5jb20iLCJhc3NpZ25lZFByb2plY3QiOm51bGwsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjkxMzkzNDc3LCJleHAiOjE2OTEzOTcwNzd9.mJQXGGtw63KmFNhRlQUi6oba1hlw9byFhTOQdb-z8uY
 
 {
-    "title": "Smile a little",
+    "title": "Sing some more",
     "description": "It works, don’t touch!",
     "enddate": "2023/8/5"
 }
@@ -41,8 +41,8 @@ PUT http://localhost:4500/users/assign
 Content-Type: application/json
 
 {
-    "project_id": "0b3a8000-3557-4ebb-bf4b-2a660c02f41d",
-    "user_id": "2b82c3e0-3e5e-43c0-9962-c48d087b2dc0"    
+    "project_id": "198afa20-18c6-4de2-9def-27b1bb8009b1",
+    "user_id": "3270a28d-bf9c-4db4-80d1-034bed1fec68"    
 }
 
 
@@ -60,8 +60,8 @@ POST  http://localhost:4500/users/register
 Content-Type: application/json
 
 {
-    "full_name": "Eliud Masun",
-    "email":"rynardronix@gmail.com",
+    "full_name": "John Jesso",
+    "email":"johnJesso@gmail.com",
     "password":"12345678"
 }
 
@@ -81,4 +81,4 @@ token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJiODJjM2UwLTNlNWUtNDNjMC05O
 
 ###  
 GET http://localhost:4500/users/allusers
-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJiODJjM2UwLTNlNWUtNDNjMC05OTYyLWM0OGQwODdiMmRjMCIsImZ1bGxfbmFtZSI6IkVsaXVkIE1hc3VuIiwiZW1haWwiOiJyeW5hcmRyb25peEBnbWFpbC5jb20iLCJhc3NpZ25lZFByb2plY3QiOiIwYjNhODAwMC0zNTU3LTRlYmItYmY0Yi0yYTY2MGMwMmY0MWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MTM2MjQwMywiZXhwIjoxNjkxMzY2MDAzfQ.36x5F_v1kDH6EL_wGzdSijXhLoANTnsoE-A5bWYEqkA
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxZTZhM2JkLWIzNjgtNGFiOS04NjgxLWQ2ZGJkNjU5N2RlYSIsImZ1bGxfbmFtZSI6IkVsaXVkIE1hc3VuIiwiZW1haWwiOiJyeW5hcmRyb25peEBnbWFpbC5jb20iLCJhc3NpZ25lZFByb2plY3QiOm51bGwsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjkxMzkzNDc3LCJleHAiOjE2OTEzOTcwNzd9.mJQXGGtw63KmFNhRlQUi6oba1hlw9byFhTOQdb-z8uY
