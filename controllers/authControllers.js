@@ -101,7 +101,21 @@ const userLogin = async(req,res)=>{
     }
 }
 
+
+const checkUser = async(req, res)=>{
+    if(req.info){
+        res.json({
+            info:req.info
+            // name:req.info.e_name,
+            // email: req.info.email,
+            // role: req.info.role
+        })
+    }
+}
+
+
 module.exports = {
     registerUsers,
-    userLogin
+    userLogin,
+    checkUser
 }

@@ -41,6 +41,20 @@ const completeProject = async(req,res)=>{
 }
 
 
+const returnUsers = async(req,res)=>{
+    try {
+        const pool = await (mssql.connect(sqlConfig))
+
+        const allUsers = (await pool.request().execute('fetchAllUsersProc')).recordset
+        
+        res.json({users: allUsers})
+    } catch (error) {
+        return res.json({Error: error.message})
+    }
+}
+
+
 module.exports = {
-    completeProject
+    completeProject,
+    returnUsers
 }

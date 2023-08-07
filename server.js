@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require ('cors')
 const { projectManagerRouter } = require('./routes/projectRoutes');
 const { usersRouter } = require('./routes/usersRouter');
 const { welcomeAboard } = require('./EmailService/newUser');
@@ -10,6 +11,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true }))
 app.use(express.json())
+app.use(cors())
 app.use('/projects', projectManagerRouter) 
 app.use('/users',usersRouter)
 

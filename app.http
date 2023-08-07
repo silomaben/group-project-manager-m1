@@ -17,7 +17,7 @@ token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkNTNkMWYzLTUyNDItNDIwYi1iZ
 
 
 ### GET ONE PROJECT
-GET http://localhost:4500/projects/0c0765dd-6397-41b4-a001-f7bd304499c9
+GET http://localhost:4500/projects/0b3a8000-3557-4ebb-bf4b-2a660c02f41d
 token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRiMjIzZjMxLTA1ZTYtNDU3Ny05NjU5LTU1MjNjNWM4ZTI2MyIsImZ1bGxfbmFtZSI6Ik1pbGxhIEplc3NvIiwiZW1haWwiOiJtaWxsYUBnbWFpbC5jb20iLCJhc3NpZ25lZFByb2plY3QiOm51bGwsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjkxMDk0NDg3LCJleHAiOjE2OTEwOTgwODd9.CsVl8qiUIZNnPQJHoB4GSGHUnRwzx5UhBkxt5OgP6HI
 
 ### UPDATING PROJECT
@@ -74,3 +74,11 @@ Content-Type: application/json
     "email":"rynardronix@gmail.com",
     "password":"12345678"
 }
+
+###
+GET http://localhost:4500/users/check
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJiODJjM2UwLTNlNWUtNDNjMC05OTYyLWM0OGQwODdiMmRjMCIsImZ1bGxfbmFtZSI6IkVsaXVkIE1hc3VuIiwiZW1haWwiOiJyeW5hcmRyb25peEBnbWFpbC5jb20iLCJhc3NpZ25lZFByb2plY3QiOiIwYjNhODAwMC0zNTU3LTRlYmItYmY0Yi0yYTY2MGMwMmY0MWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MTM1NDMyMiwiZXhwIjoxNjkxMzU3OTIyfQ.aJJrzpp1qB6g0ARN9-YoJsphSEltK3FmB_Gn_WAU-j0
+
+###  
+GET http://localhost:4500/users/allusers
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJiODJjM2UwLTNlNWUtNDNjMC05OTYyLWM0OGQwODdiMmRjMCIsImZ1bGxfbmFtZSI6IkVsaXVkIE1hc3VuIiwiZW1haWwiOiJyeW5hcmRyb25peEBnbWFpbC5jb20iLCJhc3NpZ25lZFByb2plY3QiOiIwYjNhODAwMC0zNTU3LTRlYmItYmY0Yi0yYTY2MGMwMmY0MWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MTM2MjQwMywiZXhwIjoxNjkxMzY2MDAzfQ.36x5F_v1kDH6EL_wGzdSijXhLoANTnsoE-A5bWYEqkA

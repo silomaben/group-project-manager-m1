@@ -96,12 +96,27 @@ const assignProjects = async (req,res)=>{
 
 const viewOneProject = async (req,res)=>{
     try {
-        const {id} = req.params
+
+        const { id } = req.params; // User ID
 
         const pool = await mssql.connect(sqlConfig);
+
+        // Fetch assigned project ID from the usersTable
+        const user = (await pool.request().input('id', id).execute('fetchUserByIdProc')).recordset[0];
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const assignedProjectId = user.assignedProject;
+
+
+        // const {id} = req.params
+
+        // const pool = await mssql.connect(sqlConfig);
         console.log("VIEW ONE");
 
-        const project = (await pool.request().input('id', id).execute('fetchOneProjectProc')).recordset;
+        const project = (await pool.request().input('id', assignedProjectId).execute('fetchOneProjectProc')).recordset;
 
         return res.json({
             project: project
